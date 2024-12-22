@@ -1,0 +1,7 @@
+---
+roles:
+  - name: geerlingguy.repo-remi
+  - name: geerlingguy.repo-epel
+  - name: geerlingguy.redis
+  - name: geerlingguy.firewall
+  - name: linux-system-roles.selinux

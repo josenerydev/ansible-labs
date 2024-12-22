@@ -1,0 +1,3 @@
+redis_port: 6379
+redis_bind_interface: 0.0.0.0
+redis_requirepass: "senhaforte123"
