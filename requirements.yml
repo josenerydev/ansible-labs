@@ -5,3 +5,4 @@ roles:
   - name: geerlingguy.redis
   - name: geerlingguy.firewall
   - name: linux-system-roles.selinux
+  - name: geerlingguy.glusterfs

@@ -1,0 +1,39 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Utilize uma Vagrant box do Ubuntu LTS
+  config.vm.box = "ubuntu/jammy64" # Ubuntu 22.04 LTS
+  config.ssh.insert_key = false
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider :virtualbox do |v|
+    v.memory = 2048
+    v.cpus = 2
+    v.linked_clone = true
+  end
+
+  # Configuração para app1
+  config.vm.define "gluster1" do |app|
+    app.vm.hostname = "gluster1.test"
+    app.vm.network :private_network, ip: "192.168.56.2"
+
+    # Provisão para garantir que o Python está configurado corretamente
+    app.vm.provision "shell", inline: <<-SHELL
+      sudo apt-get update
+      sudo apt-get install -y python3
+      python3 --version
+    SHELL
+  end
+
+  config.vm.define "gluster2" do |app|
+    app.vm.hostname = "gluster2.test"
+    app.vm.network :private_network, ip: "192.168.56.3"
+
+    # Provisão para garantir que o Python está configurado corretamente
+    app.vm.provision "shell", inline: <<-SHELL
+      sudo apt-get update
+      sudo apt-get install -y python3
+      python3 --version
+    SHELL
+  end
+end
