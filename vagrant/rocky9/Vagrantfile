@@ -1,7 +1,6 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # Atualize para a Vagrant box do Rocky Linux 9
   config.vm.box = "generic/rocky9"
   config.ssh.insert_key = false
   config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -11,26 +10,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.linked_clone = true
   end
 
-  # Configuração para app1
   config.vm.define "app1" do |app|
     app.vm.hostname = "app1.test"
     app.vm.network :private_network, ip: "192.168.56.4"
-
-    # Garantir que o Python está configurado corretamente
-    app.vm.provision "shell", inline: <<-SHELL
-      sudo dnf install -y python3
-      python3 --version
-    SHELL
   end
 
   config.vm.define "app2" do |app|
     app.vm.hostname = "app2.test"
     app.vm.network :private_network, ip: "192.168.56.5"
+  end
 
-    # Garantir que o Python está configurado corretamente
-    app.vm.provision "shell", inline: <<-SHELL
-      sudo dnf install -y python3
-      python3 --version
-    SHELL
+  config.vm.define "app3" do |app|
+    app.vm.hostname = "app3.test"
+    app.vm.network :private_network, ip: "192.168.56.6"
   end
 end

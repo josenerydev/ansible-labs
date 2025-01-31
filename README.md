@@ -8,6 +8,7 @@ chmod 600 vagrant_insecure_key
 ssh -i vagrant_insecure_key vagrant@192.168.56.5
 
 vagrant up
+vagrant ssh app1
 
 ## **1. Criar e Ativar o Ambiente Virtual**
 Crie um ambiente virtual Python para isolar as dependências do projeto:
