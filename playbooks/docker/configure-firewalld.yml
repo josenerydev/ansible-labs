@@ -1,0 +1,37 @@
+---
+- name: Configurar Firewalld para Docker Swarm
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Instalar firewalld (caso não esteja instalado)
+      ansible.builtin.dnf:
+        name: firewalld
+        state: present
+
+    - name: Habilitar e iniciar o firewalld
+      ansible.builtin.systemd:
+        name: firewalld
+        enabled: true
+        state: started
+
+    - name: Abrir portas do Docker Swarm no firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}"
+        permanent: true
+        state: enabled
+        immediate: true
+      loop:
+        - 2377/tcp   # Gerenciamento do Swarm
+        - 7946/tcp   # Comunicação entre nós
+        - 7946/udp   # Comunicação entre nós
+        - 4789/udp   # Rede Overlay
+
+    - name: Exibir portas abertas no firewalld
+      ansible.builtin.command: firewall-cmd --list-ports
+      register: firewalld_ports
+      changed_when: false
+
+    - name: Mostrar portas configuradas
+      ansible.builtin.debug:
+        msg: "Portas abertas no firewalld: {{ firewalld_ports.stdout }}"

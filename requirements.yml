@@ -1,8 +1,4 @@
 ---
-roles:
-  - name: geerlingguy.repo-remi
-  - name: geerlingguy.repo-epel
-  - name: geerlingguy.redis
-  - name: geerlingguy.firewall
-  - name: linux-system-roles.selinux
-  - name: geerlingguy.glusterfs
+collections:
+  - name: community.docker
+  - name: ansible.posix

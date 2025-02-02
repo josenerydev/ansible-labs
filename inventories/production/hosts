@@ -3,6 +3,13 @@
 192.168.56.5
 192.168.56.6
 
+[manager]
+192.168.56.4
+
+[workers]
+192.168.56.5
+192.168.56.6
+
 [rocky9:vars]
 ansible_user=vagrant
 ansible_ssh_private_key_file=~/.ssh/vagrant_insecure_key
