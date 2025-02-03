@@ -1,0 +1,43 @@
+---
+- name: Instalar dependências para Docker
+  hosts: all
+  become: true
+  tasks:
+    - name: Importar tasks de instalação de dependências do Docker
+      ansible.builtin.import_tasks: tasks/install-docker-deps.yml
+
+- name: Instalar Docker e plugins necessários
+  hosts: all
+  become: true
+  tasks:
+    - name: Importar tasks de instalação do Docker
+      ansible.builtin.import_tasks: tasks/install-docker.yml
+
+- name: Configurar Firewalld para Docker Swarm
+  hosts: all
+  become: true
+  tasks:
+    - name: Importar tasks de configuração do Firewalld
+      ansible.builtin.import_tasks: tasks/configure-firewalld.yml
+
+- name: Inicializar Docker Swarm no nó manager
+  hosts: manager
+  become: true
+  tasks:
+    - name: Importar tasks de inicialização do Docker Swarm
+      ansible.builtin.import_tasks: tasks/init-swarm.yml
+
+- name: Adicionar Workers ao Docker Swarm
+  hosts: workers
+  become: true
+  tasks:
+    - name: Importar tasks para adicionar workers ao Docker Swarm
+      ansible.builtin.import_tasks: tasks/join-workers.yml
+
+# Se desejar desinstalar o Docker, descomente a play abaixo
+# - name: Desinstalar Docker
+#   hosts: all
+#   become: true
+#   tasks:
+#     - name: Importar tasks para desinstalar o Docker
+#       ansible.builtin.import_tasks: tasks/uninstall-docker.yml

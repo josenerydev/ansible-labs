@@ -1,0 +1,14 @@
+---
+- name: Instalar Portainer no Docker Swarm
+  hosts: manager
+  become: true
+  tasks:
+    - name: Importar tasks de instalação do Portainer
+      ansible.builtin.import_tasks: tasks/install-portainer.yml
+  handlers:
+    - name: Aguardar serviço do Portainer estar disponível
+      ansible.builtin.wait_for:
+        host: 0.0.0.0
+        port: 9000
+        delay: 10
+        timeout: 60

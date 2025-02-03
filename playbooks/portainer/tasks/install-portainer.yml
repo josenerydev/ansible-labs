@@ -1,0 +1,28 @@
+- name: Criar diretório local para armazenar o arquivo do Portainer
+  ansible.builtin.file:
+    path: "{{ playbook_dir }}/files"
+    state: directory
+    mode: '0755'
+  delegate_to: localhost
+  become: false
+
+- name: Baixar o arquivo de stack do Portainer no controlador Ansible
+  ansible.builtin.get_url:
+    url: "https://downloads.portainer.io/ce2-21/portainer-agent-stack.yml"
+    dest: "{{ playbook_dir }}/files/portainer-agent-stack.yml"
+    mode: '0644'
+  delegate_to: localhost
+  become: false
+
+- name: Copiar arquivo para o nó manager
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/portainer-agent-stack.yml"
+    dest: "/home/vagrant/portainer-agent-stack.yml"
+    mode: '0644'
+
+- name: Fazer o deploy do Portainer no Swarm
+  ansible.builtin.command:
+    cmd: "docker stack deploy -c /home/vagrant/portainer-agent-stack.yml portainer"
+  register: portainer_status
+  changed_when: "'Updating service portainer_agent' in portainer_status.stdout or 'Creating network' in portainer_status.stdout"
+  notify: Aguardar serviço do Portainer estar disponível

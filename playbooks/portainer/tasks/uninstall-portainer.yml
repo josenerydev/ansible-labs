@@ -1,0 +1,10 @@
+- name: Remover a stack do Portainer
+  ansible.builtin.command:
+    cmd: "docker stack rm portainer"
+  register: remove_portainer
+  changed_when: "'Removing service portainer_agent' in remove_portainer.stdout"
+
+- name: Remover arquivo de configuração do Portainer do host remoto
+  ansible.builtin.file:
+    path: "/home/vagrant/portainer-agent-stack.yml"
+    state: absent

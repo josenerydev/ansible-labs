@@ -1,0 +1,11 @@
+- name: Instalar pip3 e dependências
+  ansible.builtin.dnf:
+    name: python3-pip
+    state: present
+
+- name: Instalar bibliotecas Python para Docker
+  ansible.builtin.pip:
+    name:
+      - requests
+      - docker
+    executable: pip3
