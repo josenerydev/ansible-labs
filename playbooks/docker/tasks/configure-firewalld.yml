@@ -16,10 +16,10 @@
     state: enabled
     immediate: true
   loop:
-    - 2377/tcp   # Gerenciamento do Swarm
-    - 7946/tcp   # Comunicação entre nós
-    - 7946/udp   # Comunicação entre nós
-    - 4789/udp   # Rede Overlay
+    - "2377/tcp"   # Gerenciamento do Swarm
+    - "7946/tcp"   # Comunicação entre nós
+    - "7946/udp"   # Comunicação entre nós
+    - "4789/udp"   # Rede Overlay
 
 - name: Exibir portas abertas no firewalld
   ansible.builtin.command: firewall-cmd --list-ports

@@ -31,3 +31,5 @@ Instale as dependências listadas no arquivo `requirements.txt`:
 ```bash
 pip install -r requirements.txt
 ```
+
+ansible all -i inventories/production/hosts -m ping
