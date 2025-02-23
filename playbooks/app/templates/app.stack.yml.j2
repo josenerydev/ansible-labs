@@ -12,22 +12,8 @@ services:
 
 volumes:
   nfs_download:
-    driver: local
-    driver_opts:
-      type: "nfs"
-      o: "addr={{ nfs_server_ip }},rw"
-      device: ":/srv/nfs/share/download"
-
+    external: true
   nfs_var_upload:
-    driver: local
-    driver_opts:
-      type: "nfs"
-      o: "addr={{ nfs_server_ip }},rw"
-      device: ":/srv/nfs/share/var_upload"
-
+    external: true
   nfs_eproc_tmp:
-    driver: local
-    driver_opts:
-      type: "nfs"
-      o: "addr={{ nfs_server_ip }},rw"
-      device: ":/srv/nfs/share/eproc_tmp"
+    external: true
