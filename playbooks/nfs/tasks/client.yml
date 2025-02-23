@@ -10,12 +10,12 @@
     state: directory
     mode: '0755'
 
-- name: Montar diretório NFS
+- name: Montar diretório NFS sem cache de leitura
   ansible.posix.mount:
     path: /mnt/nfs_share
     src: "{{ groups['manager'][0] }}:/srv/nfs/share"
     fstype: nfs
-    opts: defaults,_netdev
+    opts: rw,sync,noac,actimeo=0
     state: mounted
 
 - name: Verificar se o NFS foi montado
