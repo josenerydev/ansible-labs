@@ -1,1 +1,1 @@
-ansible-playbook -i inventories/production/hosts playbooks/docker/main.yml -l rocky9
+ansible-playbook -i inventories/production/hosts playbooks/docker/main.ansible.yml -l rocky9

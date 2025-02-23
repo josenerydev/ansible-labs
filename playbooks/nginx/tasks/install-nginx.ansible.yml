@@ -1,0 +1,12 @@
+---
+- name: Criar diretório para arquivos do NGINX
+  ansible.builtin.file:
+    path: "/etc/opt/nginx"
+    state: directory
+    mode: '0755'
+
+- name: Criar diretório para certificados SSL
+  ansible.builtin.file:
+    path: "/etc/opt/nginx/certs"
+    state: directory
+    mode: '0755'

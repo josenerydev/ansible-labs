@@ -4,39 +4,39 @@
   become: true
   tasks:
     - name: Importar tasks de instalação de dependências do Docker
-      ansible.builtin.import_tasks: tasks/install-docker-deps.yml
+      ansible.builtin.import_tasks: tasks/install-docker-deps.ansible.yml
 
 - name: Instalar Docker e plugins necessários
   hosts: all
   become: true
   tasks:
     - name: Importar tasks de instalação do Docker
-      ansible.builtin.import_tasks: tasks/install-docker.yml
+      ansible.builtin.import_tasks: tasks/install-docker.ansible.yml
 
 - name: Configurar Firewalld para Docker Swarm
   hosts: all
   become: true
   tasks:
     - name: Importar tasks de configuração do Firewalld
-      ansible.builtin.import_tasks: tasks/configure-firewalld.yml
+      ansible.builtin.import_tasks: tasks/configure-firewalld.ansible.yml
 
 - name: Inicializar Docker Swarm no nó manager
   hosts: manager
   become: true
   tasks:
     - name: Importar tasks de inicialização do Docker Swarm
-      ansible.builtin.import_tasks: tasks/init-swarm.yml
+      ansible.builtin.import_tasks: tasks/init-swarm.ansible.yml
 
 - name: Criar rede overlay para serviços Docker
   hosts: manager
   become: true
   tasks:
     - name: Importar task de criação da rede webnet
-      ansible.builtin.import_tasks: tasks/create-docker-network.yml
+      ansible.builtin.import_tasks: tasks/create-docker-network.ansible.yml
 
 - name: Adicionar Workers ao Docker Swarm
   hosts: workers
   become: true
   tasks:
     - name: Importar tasks para adicionar workers ao Docker Swarm
-      ansible.builtin.import_tasks: tasks/join-workers.yml
+      ansible.builtin.import_tasks: tasks/join-workers.ansible.yml

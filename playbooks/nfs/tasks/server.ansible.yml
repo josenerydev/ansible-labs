@@ -11,8 +11,8 @@
     mode: '0777'
 
 - name: Configurar exportação NFS no /etc/exports
-  ansible.builtin.template:
-    src: exports.j2
+  ansible.builtin.copy:
+    src: exports
     dest: /etc/exports
     owner: root
     group: root

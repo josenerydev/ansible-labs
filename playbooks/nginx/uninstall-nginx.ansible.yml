@@ -4,4 +4,4 @@
   become: true
   tasks:
     - name: Importar tasks para desinstalar o NGINX
-      ansible.builtin.import_tasks: tasks/uninstall-nginx.yml
+      ansible.builtin.import_tasks: tasks/uninstall-nginx.ansible.yml

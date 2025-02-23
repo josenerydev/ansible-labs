@@ -9,6 +9,7 @@
     path: /mnt/nfs_share
     state: directory
     mode: '0755'
+  when: "'/mnt/nfs_share' not in ansible_mounts | map(attribute='mount') | list"
 
 - name: Montar diretório NFS sem cache de leitura
   ansible.posix.mount:

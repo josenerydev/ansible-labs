@@ -1,0 +1,20 @@
+---
+- name: Adicionar usuário vagrant ao grupo docker
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Adicionar usuário vagrant ao grupo docker
+      ansible.builtin.user:
+        name: vagrant
+        groups: docker
+        append: true
+
+    - name: Verificar se o usuário vagrant já está no grupo docker
+      ansible.builtin.command: id -nG vagrant
+      register: user_groups
+      changed_when: false
+
+    - name: Exibir grupos do usuário vagrant (debug)
+      ansible.builtin.debug:
+        msg: "Usuário vagrant pertence aos grupos: {{ user_groups.stdout }}"

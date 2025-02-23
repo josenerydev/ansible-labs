@@ -1,0 +1,10 @@
+---
+- name: Instalar e Configurar NGINX no Docker Swarm
+  hosts: manager
+  become: true
+  tasks:
+    - name: Importar instalação do NGINX
+      ansible.builtin.import_tasks: tasks/install-nginx.ansible.yml
+
+    - name: Configurar arquivos do NGINX
+      ansible.builtin.import_tasks: tasks/configure-nginx.ansible.yml

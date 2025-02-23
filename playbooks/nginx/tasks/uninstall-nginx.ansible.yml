@@ -1,0 +1,10 @@
+---
+- name: Remover stack do NGINX
+  community.docker.docker_stack:
+    state: absent
+    name: "nginx"
+
+- name: Remover diretório do NGINX
+  ansible.builtin.file:
+    path: "/etc/opt/nginx"
+    state: absent

@@ -4,4 +4,4 @@
   become: true
   tasks:
     - name: Importar tasks de instalação do Portainer
-      ansible.builtin.import_tasks: tasks/install-portainer.yml
+      ansible.builtin.import_tasks: tasks/install-portainer.ansible.yml

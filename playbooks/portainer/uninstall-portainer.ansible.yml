@@ -4,4 +4,4 @@
   become: true
   tasks:
     - name: Importar tasks para desinstalar o Portainer
-      ansible.builtin.import_tasks: tasks/uninstall-portainer.yml
+      ansible.builtin.import_tasks: tasks/uninstall-portainer.ansible.yml

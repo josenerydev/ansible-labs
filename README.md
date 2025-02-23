@@ -8,6 +8,8 @@ chmod 600 vagrant_insecure_key
 ssh -i vagrant_insecure_key vagrant@192.168.56.5
 
 vagrant up
+vagrant reload
+vagrant reload --provision
 vagrant ssh app1
 
 ## **1. Criar e Ativar o Ambiente Virtual**
@@ -34,6 +36,7 @@ pip install -r requirements.txt
 
 ansible all -i inventories/production/hosts -m ping
 
+ssh-keygen -R 192.168.56.5
 
 ssh -i .\vagrant_insecure_key vagrant@192.168.56.4
 ssh -i .\vagrant_insecure_key vagrant@192.168.56.5

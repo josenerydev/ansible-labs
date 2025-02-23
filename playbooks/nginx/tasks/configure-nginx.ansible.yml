@@ -1,0 +1,25 @@
+---
+- name: Copiar configuração nginx.conf
+  ansible.builtin.template:
+    src: templates/nginx.conf.j2
+    dest: /etc/opt/nginx/nginx.conf
+    mode: '0644'
+
+- name: Copiar configuração default.conf
+  ansible.builtin.template:
+    src: templates/default.conf.j2
+    dest: /etc/opt/nginx/default.conf
+    mode: '0644'
+
+- name: Copiar configuração do stack do NGINX
+  ansible.builtin.template:
+    src: templates/nginx-stack.yml.j2
+    dest: /etc/opt/nginx/nginx-stack.yml
+    mode: '0644'
+
+- name: Configurar e fazer deploy do NGINX no Swarm
+  community.docker.docker_stack:
+    state: present
+    name: "nginx"
+    compose:
+      - "/etc/opt/nginx/nginx-stack.yml"
