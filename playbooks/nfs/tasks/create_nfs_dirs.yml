@@ -1,0 +1,11 @@
+---
+- name: Criar diretórios no servidor NFS para a aplicação
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0777'
+  loop:
+    - /srv/nfs/share
+    - /srv/nfs/share/download
+    - /srv/nfs/share/var_upload
+    - /srv/nfs/share/eproc_tmp

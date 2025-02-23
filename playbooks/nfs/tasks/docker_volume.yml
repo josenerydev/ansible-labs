@@ -1,0 +1,10 @@
+---
+- name: Criar volume Docker Swarm com driver NFS
+  community.docker.docker_volume:
+    name: "nfs_volume"
+    driver: "local"
+    driver_options:
+      type: "nfs"
+      o: "addr={{ groups['manager'][0] }},rw"
+      device: ":/srv/nfs/share"
+    state: present

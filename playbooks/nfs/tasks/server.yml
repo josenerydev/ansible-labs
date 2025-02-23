@@ -29,7 +29,7 @@
     service: "{{ item }}"
     permanent: true
     state: enabled
-    immediate: yes
+    immediate: true
   loop:
     - nfs
     - rpc-bind

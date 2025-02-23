@@ -3,8 +3,14 @@
   hosts: manager
   become: true
   tasks:
+    - name: Criar diretórios necessários no servidor NFS
+      ansible.builtin.import_tasks: tasks/create_nfs_dirs.yml
+
     - name: Importar configuração do servidor NFS
       ansible.builtin.import_tasks: tasks/server.yml
+
+    - name: Criar volume Docker Swarm para NFS
+      ansible.builtin.import_tasks: tasks/docker_volume.yml
 
 - name: Configurar Clientes NFS
   hosts: workers
