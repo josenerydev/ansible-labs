@@ -8,4 +8,5 @@
     name:
       - requests
       - docker
+      - jsondiff
     executable: pip3

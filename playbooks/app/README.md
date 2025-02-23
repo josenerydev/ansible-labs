@@ -8,6 +8,8 @@ chmod -R 777 app/logs
 
 ansible-playbook playbooks/app/build_push.yml
 
-ansible-playbook playbooks/app/deploy_stack.yml
+ansible-playbook -i inventories/production/hosts playbooks/app/deploy_stack.yml -l rocky9
 
-ansible-playbook -i inventories/production/hosts playbooks/app/deploy_stack.yml  -l rocky9
+http://192.168.56.4:8080/
+
+http://192.168.56.4:8080/nfs_test.php

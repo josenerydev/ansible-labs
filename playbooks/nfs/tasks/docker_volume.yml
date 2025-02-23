@@ -1,10 +1,14 @@
 ---
-- name: Criar volume Docker Swarm com driver NFS
+- name: Criar volumes Docker Swarm com driver NFS
   community.docker.docker_volume:
-    name: "nfs_volume"
+    name: "{{ item.name }}"
     driver: "local"
     driver_options:
       type: "nfs"
       o: "addr={{ groups['manager'][0] }},rw"
-      device: ":/srv/nfs/share"
+      device: ":{{ item.path }}"
     state: present
+  loop:
+    - { name: "nfs_download", path: "/srv/nfs/share/download" }
+    - { name: "nfs_var_upload", path: "/srv/nfs/share/var_upload" }
+    - { name: "nfs_eproc_tmp", path: "/srv/nfs/share/eproc_tmp" }

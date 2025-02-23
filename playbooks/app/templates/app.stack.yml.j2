@@ -1,6 +1,6 @@
 services:
   web:
-    image: josenerydev/app:RpdDsx
+    image: josenerydev/app:H45GIM
     deploy:
       replicas: 3
     volumes:
@@ -15,19 +15,19 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs"
-      o: "addr={{ groups['manager'][0] }},rw"
+      o: "addr={{ nfs_server_ip }},rw"
       device: ":/srv/nfs/share/download"
 
   nfs_var_upload:
     driver: local
     driver_opts:
       type: "nfs"
-      o: "addr={{ groups['manager'][0] }},rw"
+      o: "addr={{ nfs_server_ip }},rw"
       device: ":/srv/nfs/share/var_upload"
 
   nfs_eproc_tmp:
     driver: local
     driver_opts:
       type: "nfs"
-      o: "addr={{ groups['manager'][0] }},rw"
+      o: "addr={{ nfs_server_ip }},rw"
       device: ":/srv/nfs/share/eproc_tmp"

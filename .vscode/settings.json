@@ -1,3 +1,7 @@
 {
+    "files.associations": {
+        "*.yml.j2": "yaml",
+        "*.yaml.j2": "yaml"
+    },
     "ansible.python.interpreterPath": "/home/josenerydev/repos/ansible-labs/venv/bin/python"
 }
