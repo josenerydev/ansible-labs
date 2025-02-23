@@ -1,0 +1,41 @@
+---
+- name: Build e Push da Imagem para Docker Hub
+  hosts: localhost
+  gather_facts: false
+  vars:
+    docker_hub_user: "josenerydev"
+    image_name: "app"
+    repository: "{{ docker_hub_user }}/{{ image_name }}"
+  tasks:
+    - name: Definir tag aleatória para a imagem
+      ansible.builtin.set_fact:
+        random_tag: "{{ lookup('community.general.random_string', length=6, special=false) }}"
+
+    - name: Exibir a tag gerada
+      ansible.builtin.debug:
+        msg: "Imagem será gerada com tag {{ random_tag }}"
+
+    - name: Construir a imagem Docker
+      community.docker.docker_image:
+        build:
+          path: "{{ playbook_dir }}"
+        name: "{{ repository }}"
+        tag: "{{ random_tag }}"
+        source: build
+        push: false
+      register: build_output
+
+    - name: Exibir saída da build
+      ansible.builtin.debug:
+        var: build_output
+
+    - name: Fazer push da imagem para Docker Hub
+      community.docker.docker_image:
+        name: "{{ repository }}"
+        tag: "{{ random_tag }}"
+        source: local
+        push: true
+
+    - name: Exibir nome completo da imagem no Docker Hub
+      ansible.builtin.debug:
+        msg: "Imagem publicada: {{ repository }}:{{ random_tag }}"

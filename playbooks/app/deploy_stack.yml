@@ -1,0 +1,27 @@
+---
+- name: Transferir e Deployar aplicação no Docker Swarm
+  hosts: manager
+  become: true
+  vars:
+    stack_name: "app"
+    stack_file: "{{ playbook_dir }}/app.stack.yml"
+  tasks:
+    - name: Copiar app.stack.yml para o nó Manager
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/app.stack.yml"
+        dest: "/home/vagrant/app.stack.yml"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Fazer deploy do stack no Docker Swarm
+      community.docker.docker_stack:
+        state: present
+        name: "{{ stack_name }}"
+        compose:
+          - /home/vagrant/app.stack.yml
+      register: deploy_output
+
+    - name: Exibir resultado do deploy
+      ansible.builtin.debug:
+        var: deploy_output.stdout_lines

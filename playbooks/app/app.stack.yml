@@ -1,0 +1,33 @@
+services:
+  web:
+    image: josenerydev/app:RpdDsx
+    deploy:
+      replicas: 3
+    volumes:
+      - nfs_download:/download
+      - nfs_var_upload:/var/upload
+      - nfs_eproc_tmp:/var/www/eproc_tmp
+    ports:
+      - "8080:80"
+
+volumes:
+  nfs_download:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr={{ groups['manager'][0] }},rw"
+      device: ":/srv/nfs/share/download"
+
+  nfs_var_upload:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr={{ groups['manager'][0] }},rw"
+      device: ":/srv/nfs/share/var_upload"
+
+  nfs_eproc_tmp:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr={{ groups['manager'][0] }},rw"
+      device: ":/srv/nfs/share/eproc_tmp"
