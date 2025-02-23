@@ -18,3 +18,6 @@ Execute o playbook com:
 
 ```bash
 ansible-playbook -i inventories/production/hosts playbooks/nfs/main.yml -l rocky9
+
+
+sudo ls -l /var/lib/docker/volumes/nfs_download/_data
