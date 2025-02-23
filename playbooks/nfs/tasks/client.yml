@@ -1,0 +1,19 @@
+---
+- name: Instalar pacotes NFS no cliente
+  ansible.builtin.dnf:
+    name: nfs-utils
+    state: present
+
+- name: Criar diretório local para montagem do NFS
+  ansible.builtin.file:
+    path: /mnt/nfs_share
+    state: directory
+    mode: '0755'
+
+- name: Montar diretório NFS
+  ansible.posix.mount:
+    path: /mnt/nfs_share
+    src: "{{ groups['manager'][0] }}:/srv/nfs/share"
+    fstype: nfs
+    opts: defaults
+    state: mounted

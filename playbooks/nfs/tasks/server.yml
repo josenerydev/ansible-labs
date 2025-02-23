@@ -1,0 +1,30 @@
+---
+- name: Instalar pacotes NFS no servidor
+  ansible.builtin.dnf:
+    name: nfs-utils
+    state: present
+
+- name: Criar diretório compartilhado para NFS
+  ansible.builtin.file:
+    path: /srv/nfs/share
+    state: directory
+    mode: '0777'
+
+- name: Configurar exportação NFS no /etc/exports
+  ansible.builtin.template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Habilitar e iniciar o serviço NFS
+  ansible.builtin.systemd:
+    name: nfs-server
+    enabled: true
+    state: started
+
+- name: Exportar diretórios do NFS
+  ansible.builtin.command: exportfs -rav
+  changed_when: false
+  notify: Reiniciar NFS

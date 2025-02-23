@@ -1,0 +1,14 @@
+---
+- name: Configurar Servidor NFS
+  hosts: manager
+  become: true
+  tasks:
+    - name: Importar configuração do servidor NFS
+      ansible.builtin.import_tasks: tasks/server.yml
+
+- name: Configurar Clientes NFS
+  hosts: workers
+  become: true
+  tasks:
+    - name: Importar configuração do cliente NFS
+      ansible.builtin.import_tasks: tasks/client.yml
