@@ -1,0 +1,36 @@
+---
+- name: Criar diretório para NGINX no manager
+  ansible.builtin.file:
+    path: "/home/vagrant/nginx"
+    state: directory
+    mode: '0755'
+
+- name: Copiar nginx.conf
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /home/vagrant/nginx/nginx.conf
+    mode: '0644'
+
+- name: Copiar default.conf
+  ansible.builtin.template:
+    src: default.conf.j2
+    dest: /home/vagrant/nginx/default.conf
+    mode: '0644'
+
+- name: Copiar stack NGINX
+  ansible.builtin.template:
+    src: nginx-stack.yml.j2
+    dest: /home/vagrant/nginx-stack.yml
+    mode: '0644'
+
+- name: Fazer deploy do NGINX no Swarm
+  community.docker.docker_stack:
+    state: present
+    name: "nginx"
+    compose:
+      - "/home/vagrant/nginx-stack.yml"
+  register: deploy_output
+
+- name: Exibir resultado do deploy
+  ansible.builtin.debug:
+    var: deploy_output.stdout_lines

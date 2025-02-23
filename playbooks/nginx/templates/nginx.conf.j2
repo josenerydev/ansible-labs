@@ -1,0 +1,43 @@
+worker_processes auto;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    log_format json_logs ' {'
+                         '"time_local":"$time_local",'
+                         '"remote_addr":"$remote_addr",'
+                         '"remote_port":"$remote_port",'
+                         '"x_real_ip":"$http_x_real_ip",'
+                         '"x_forwarded_for":"$http_x_forwarded_for",'
+                         '"proxy_add_x_forwarded_for":"$proxy_add_x_forwarded_for",'
+                         '"request":"$request",'
+                         '"request_method":"$request_method",'
+                         '"request_uri":"$request_uri",'
+                         '"args":"$args",'
+                         '"status":"$status",'
+                         '"body_bytes_sent":"$body_bytes_sent",'
+                         '"bytes_sent":"$bytes_sent",'
+                         '"request_length":"$request_length",'
+                         '"http_referer":"$http_referer",'
+                         '"http_user_agent":"$http_user_agent",'
+                         '"http_host":"$http_host",'
+                         '"upstream_addr":"$upstream_addr",'
+                         '"upstream_status":"$upstream_status",'
+                         '"upstream_response_time":"$upstream_response_time",'
+                         '"request_time":"$request_time",'
+                         '"connection":"$connection",'
+                         '"connection_requests":"$connection_requests",'
+                         '"pipe":"$pipe",'
+                         '"gzip_ratio":"$gzip_ratio"'
+                         ' }';
+
+    access_log /dev/stdout json_logs;
+    error_log /dev/stderr warn;
+
+    include /etc/nginx/conf.d/*.conf;
+}

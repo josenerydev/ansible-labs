@@ -1,14 +1,16 @@
 services:
   web:
-    image: josenerydev/app:MXLd4p
+    image: josenerydev/app:p1hViG
     deploy:
-      replicas: 6
+      replicas: 3
     volumes:
       - nfs_download:/download
       - nfs_var_upload:/var/upload
       - nfs_eproc_tmp:/var/www/eproc_tmp
     ports:
       - "8080:80"
+    networks:
+      - webnet
 
 volumes:
   nfs_download:
@@ -16,4 +18,8 @@ volumes:
   nfs_var_upload:
     external: true
   nfs_eproc_tmp:
+    external: true
+
+networks:
+  webnet:
     external: true

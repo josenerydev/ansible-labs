@@ -27,17 +27,16 @@
     - name: Importar tasks de inicialização do Docker Swarm
       ansible.builtin.import_tasks: tasks/init-swarm.yml
 
+- name: Criar rede overlay para serviços Docker
+  hosts: manager
+  become: true
+  tasks:
+    - name: Importar task de criação da rede webnet
+      ansible.builtin.import_tasks: tasks/create-docker-network.yml
+
 - name: Adicionar Workers ao Docker Swarm
   hosts: workers
   become: true
   tasks:
     - name: Importar tasks para adicionar workers ao Docker Swarm
       ansible.builtin.import_tasks: tasks/join-workers.yml
-
-# Se desejar desinstalar o Docker, descomente a play abaixo
-# - name: Desinstalar Docker
-#   hosts: all
-#   become: true
-#   tasks:
-#     - name: Importar tasks para desinstalar o Docker
-#       ansible.builtin.import_tasks: tasks/uninstall-docker.yml

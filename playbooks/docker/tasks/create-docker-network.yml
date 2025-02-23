@@ -1,0 +1,7 @@
+---
+- name: Criar rede overlay "webnet" no Docker Swarm
+  community.docker.docker_network:
+    name: webnet
+    driver: overlay
+    attachable: true
+    state: present

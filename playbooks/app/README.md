@@ -13,3 +13,5 @@ ansible-playbook -i inventories/production/hosts playbooks/app/deploy_stack.yml 
 http://192.168.56.4:8080/
 
 http://192.168.56.4:8080/nfs_test.php
+
+http://app.local/

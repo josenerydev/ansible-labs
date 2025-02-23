@@ -1,0 +1,7 @@
+---
+- name: Remover NGINX do Docker Swarm
+  hosts: manager
+  become: true
+  tasks:
+    - name: Importar tasks para desinstalar o NGINX
+      ansible.builtin.import_tasks: tasks/uninstall-nginx.yml

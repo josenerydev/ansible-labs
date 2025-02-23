@@ -13,7 +13,7 @@
       ansible.builtin.import_tasks: tasks/docker_volume.yml
 
 - name: Configurar Clientes NFS
-  hosts: workers
+  hosts: all
   become: true
   tasks:
     - name: Importar configuração do cliente NFS

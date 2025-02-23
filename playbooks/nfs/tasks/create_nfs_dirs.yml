@@ -5,7 +5,6 @@
     state: directory
     mode: '0777'
   loop:
-    - /srv/nfs/share
     - /srv/nfs/share/download
     - /srv/nfs/share/var_upload
     - /srv/nfs/share/eproc_tmp

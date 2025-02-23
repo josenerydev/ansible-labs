@@ -25,4 +25,3 @@
     cmd: "docker stack deploy -c /home/vagrant/portainer-agent-stack.yml portainer"
   register: portainer_status
   changed_when: "'Updating service portainer_agent' in portainer_status.stdout or 'Creating network' in portainer_status.stdout"
-  notify: Aguardar serviço do Portainer estar disponível
