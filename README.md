@@ -33,3 +33,8 @@ pip install -r requirements.txt
 ```
 
 ansible all -i inventories/production/hosts -m ping
+
+
+ssh -i .\vagrant_insecure_key vagrant@192.168.56.4
+ssh -i .\vagrant_insecure_key vagrant@192.168.56.5
+ssh -i .\vagrant_insecure_key vagrant@192.168.56.6
