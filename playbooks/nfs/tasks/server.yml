@@ -24,6 +24,17 @@
     enabled: true
     state: started
 
+- name: Habilitar portas no firewall para NFS
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+    immediate: yes
+  loop:
+    - nfs
+    - rpc-bind
+    - mountd
+
 - name: Exportar diretórios do NFS
   ansible.builtin.command: exportfs -rav
   changed_when: false
