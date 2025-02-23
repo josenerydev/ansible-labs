@@ -1,0 +1,11 @@
+---
+- name: Reboot dos hosts
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Reiniciando o sistema
+      ansible.builtin.reboot:
+        reboot_timeout: 300
+        test_command: whoami
